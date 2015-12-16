@@ -45,6 +45,13 @@
 		return mysql_query("SELECT `seria`.`seria_id`, `seria`.`name` FROM `seria` ", $db);
 	}
 
+	function downloadItems ($db) {
+		return mysql_query("SELECT `item`.`item_id`, `item`.`name`, `item`.`cost`, `item`.`count`, `item`.`about`,".
+			" `item`.`picture`, `producer`.`name` AS 'producer', `seria`.`name` AS 'seria', `subsection`.`name` AS 'subsection' ".
+			"FROM `item`, `producer`,`seria`, `subsection` WHERE `producer`.`producer_id` = `item`.`producer_id`".
+			" AND `seria`.`seria_id` = `item`.`seria_id` AND `item`.`subsection_id` = `subsection`.`subsection_id`", $db);
+	}
+
 	function downloadItemsInSubsection ($db) {
 		if (!isset($_GET['subsectionIdent'])){
 			die("wrong argument list");
